@@ -1,71 +1,59 @@
-# Vagrant
-
-Vagrant is used to send very specific instructions, keep it consistent on a larger scale. 
+## Vagrant
+Vagrant is a tool used for building and managing virtual machine environments in a single workflow. It is easy to use and focuses on automation. 
 
 ![Alt text](9e7d2afc-b331-4b89-ae05-67a9376a433e.jpg)
 
-In vs code, bash terminal: 
+### Vagrant Commands
+Note: vscode Bash Terminal is used until Vagrant initialises.
 
-`vagrant init` - get the vagrant file, get rid of the green comments. 
+Note: This means up until vagrant ssh.
 
-Example: 
 
+ `vagrant init` -  Used to get the Vagrant file
+
+Example:
+~~~
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64" 
+end
+~~~
+`vagrant up` - Used to initiate the instructions in the Vagrant file
+
+`vagrant ssh` - SSH is the protocol to access the VM
+
+`sudo` - Gives admin rights
+
+<!-- `apt-get` - Apt is the package manager
+
+`update` - Download these packages
+
+`upgrade` - Install these packages -->
+
+` sudo apt-get update` - Uses apt pack manager to download updates
+
+` sudo apt-get upgrade` - Uses apt pack manager to install updates
+
+` vagrant reload` - Restarts the VM using any new config
+
+`vagrant destroy` - Used to shut-down and delete the VM
+
+`"ctrl c" or "q"` if locked out of terminal 
+# 
+### Vagrant Web Server SetUp
+#### Setup Process: 
+
+`sudo apt-get install nginx -y` - Installs nginx
+
+`sudo systemctl start nginx` - Starts nginx
+
+`sudo systemtcl status nginx` - Checks status of nginx
+
+#### Add an IP address to the instructions:
+Example
 ```
 Vagrant.configure("2") do |config|
- 
-  config.vm.box = "ubuntu/xenial64" # This is the operating system
-	
-  
+ config.vm.box = "ubuntu/xenial64" 
+	config.vm.network "private_network", ip:"192.168.10.100"`
 end
 ```
-
-`vagrant up` - to sent the instructions to virtual box
-
-`vagrant destroy` - shutdown and destroy the vm
-
-`vagrant ssh` - protocol being used to access the vm
-
----
-
-`sudo` = give me admin rights
-`apt-get` = apt is the package manager, get them.
-`update` = download these packages.
-
-`upgrade` = installs these packages.
-
-`sudo apt-get update` 
-
-`sudo apt-get upgrade`
-
----
-
-### Setting up a web server:
-
-`sudo apt-get install nginx -y` Install nginx, confirmed y.
-
-`sudo systemctl start nginx` Start the service
-
-`sudo systemctl status nginx` Check the status of nginx
-
-Add an IP address by going to instructions:
-
-```jsx
-Vagrant.configure("2") do |config|
- 
-  config.vm.box = "ubuntu/xenial64" # This is the operating system
-	config.vm.network "private_network", ip:"192.168.10.100"
-  
-end
-```
-
-Restart the VM to apply changes:
-`logout` - Leave
-`vagrant reload` - Restart with new config
-
----
-
-If you get locked out of terminal :
-
-ctrl c or q
-
-`vagrant ssh` - go back in
+Restart the VM to apply changes using `vagrant reload` 
